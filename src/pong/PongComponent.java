@@ -15,4 +15,5 @@ public abstract class PongComponent {
 		this.velocity = initialVelocity;
 	}
 	public void update(double dt) {}
+	public void collided(PongComponent collidedComponent) {}
 }

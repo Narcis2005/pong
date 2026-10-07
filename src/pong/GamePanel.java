@@ -1,6 +1,5 @@
 package pong;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -31,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setPreferredSize(new Dimension(screenX, screenY));
 		this.addKeyListener(new KeyListenerPong(entityManager));
 
-		Vector2 ballInitialVelocity = new Vector2(50, 30);
+		Vector2 ballInitialVelocity = new Vector2(150, 20);
 		entityManager.add( new Ball(unitOfSize, screenCenter, ballInitialVelocity));
 
 		Vector2 tileSize = new Vector2(unitOfSize.x / 2, unitOfSize.y * 5);

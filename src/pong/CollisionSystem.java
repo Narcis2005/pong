@@ -5,8 +5,7 @@ public class CollisionSystem {
 	CollisionSystem(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
-	void checkCollisions() {
-		
+	public void checkCollisions() {
 		for (int i = 0; i < entityManager.getEntities().size(); i++) {
 			PongComponent currentEntity = entityManager.getEntityByIndex(i);
 			for (int j = i+1; j < entityManager.getEntities().size(); j++) {
@@ -25,41 +24,39 @@ public class CollisionSystem {
 				double checkRight = checkEntity.position.x + halfCheckX;
 				double checkTop = checkEntity.position.y - halfCheckY;
 				double checkBottom = checkEntity.position.y + halfCheckY;
-
-				double overlapLeft = currentRight - checkLeft;
-				double overlapRight = checkRight - currentLeft;
-				double overlapTop = currentBottom - checkTop;
-				double overlapBottom = checkBottom - currentTop;
 				
 				if (currentRight >= checkLeft &&
 						checkRight >= currentLeft &&
 						currentBottom >= checkTop &&
 						checkBottom >= currentTop) {
-					double minOverlapX = Math.min(overlapLeft, overlapRight);
-					double minOverlapY = Math.min(overlapTop, overlapBottom);
-
-					
-					if (minOverlapX < minOverlapY) {
-						  if (overlapLeft < overlapRight) {
-						    currentEntity.position.x -= overlapLeft;
-						  } else {
-						    currentEntity.position.x += overlapRight;
-						  }
-						  currentEntity.velocity.x = -currentEntity.velocity.x;
-						} else {
-						  if (overlapTop < overlapBottom) {
-						    currentEntity.position.y -= overlapTop;
-						  } else {
-						    currentEntity.position.y += overlapBottom;
-						  }
-						  currentEntity.velocity.y = -currentEntity.velocity.y;
-						}
+					currentEntity.collided(checkEntity);
+					checkEntity.collided(currentEntity);
 				}
-
 			}
-
 		}
 	}
-	
+
+	static double[] getOverlaps(PongComponent componentA, PongComponent componentB) {
+		double halfCurrentY = componentA.size.y / 2;
+		double halfCurrentX = componentA.size.x / 2;
+		double currentLeft = componentA.position.x - halfCurrentX;
+		double currentRight = componentA.position.x + halfCurrentX;
+		double currentTop = componentA.position.y - halfCurrentY;
+		double currentBottom = componentA.position.y + halfCurrentY;
+
+		double halfCheckY = componentB.size.y / 2;
+		double halfCheckX = componentB.size.x / 2;
+		double checkLeft = componentB.position.x - halfCheckX;
+		double checkRight = componentB.position.x + halfCheckX;
+		double checkTop = componentB.position.y - halfCheckY;
+		double checkBottom = componentB.position.y + halfCheckY;
+
+		double overlapLeft = currentRight - checkLeft;
+		double overlapRight = checkRight - currentLeft;
+		double overlapTop = currentBottom - checkTop;
+		double overlapBottom = checkBottom - currentTop;
+		
+		return new double[] {overlapLeft, overlapRight, overlapTop, overlapBottom};
+	}
 	
 }
