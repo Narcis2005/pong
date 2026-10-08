@@ -34,13 +34,24 @@ public class Ball extends PongComponent {
 			double minOverlapY = Math.min(overlapTop, overlapBottom);
 	
 			if (minOverlapX < minOverlapY) {
-			  if (overlapLeft < overlapRight) {
-			    position.x -= overlapLeft;
-			  } else {
-			    position.x += overlapRight;
-			  }
-			  velocity.x = -velocity.x;
-			} 
+			    if (overlapLeft < overlapRight) {
+			      position.x -= overlapLeft;
+			    }
+			    else {
+			      position.x += overlapRight;
+			    }
+				double speed = velocity.speed();
+				double maxAngle = Math.PI / 3;
+				double normalizedOffset = (position.y - collidedComponent.position.y) / (collidedComponent.size.y /2);
+			    double newVx = -velocity.x;
+			    double maxVerticalPush = speed * Math.sin(maxAngle);
+			    double newVy = velocity.y + (normalizedOffset * maxVerticalPush);
+			    float currentLength = (float) Math.sqrt(newVx * newVx + newVy * newVy);
+			    velocity.x = (newVx / currentLength) * speed;
+			    velocity.y = (newVy / currentLength) * speed;
+			}
+			
+			
 			else {
 			  if (overlapTop < overlapBottom) {
 			    position.y -= overlapTop;

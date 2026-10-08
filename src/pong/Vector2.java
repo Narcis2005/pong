@@ -18,4 +18,7 @@ public class Vector2 {
 	public Vector2 add (Vector2 n) {
 		return new Vector2((double)x + n.x, (double)y + n.y);
 	}
+	public double speed () {
+		return Math.sqrt(x * x + y * y);
+	}
 }

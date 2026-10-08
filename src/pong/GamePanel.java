@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setPreferredSize(new Dimension(screenX, screenY));
 		this.addKeyListener(new KeyListenerPong(entityManager));
 
-		Vector2 ballInitialVelocity = new Vector2(150, 20);
+		Vector2 ballInitialVelocity = new Vector2(350, 0);
 		entityManager.add( new Ball(unitOfSize, screenCenter, ballInitialVelocity));
 
 		Vector2 tileSize = new Vector2(unitOfSize.x / 2, unitOfSize.y * 5);
@@ -66,7 +66,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 		for(PongComponent entity : entityManager.getEntities()){
 			if (entity.type.equals("oval")) {
-				g2d.fillOval((int)entity.position.x - (int)entity.size.x / 2, (int) entity.position.y - (int) entity.size.x / 2, (int) entity.size.x, (int) entity.size.y);
+				g2d.fillOval((int)entity.position.x - (int)entity.size.x / 2, (int) entity.position.y - (int) entity.size.y / 2, (int) entity.size.x, (int) entity.size.y);
 			}
 			else if(entity.type.equals("rect")) {
 				g2d.fillRect((int)entity.position.x - (int)entity.size.x / 2, (int) entity.position.y - (int)entity.size.y / 2, (int)entity.size.x, (int)entity.size.y);
