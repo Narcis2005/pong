@@ -10,7 +10,7 @@ public class CollisionSystem {
 			PongComponent currentEntity = entityManager.getEntityByIndex(i);
 			for (int j = i+1; j < entityManager.getEntities().size(); j++) {
 				PongComponent checkEntity = entityManager.getEntityByIndex(j);
-
+				
 				double halfCurrentY = currentEntity.size.y / 2;
 				double halfCurrentX = currentEntity.size.x / 2;
 				double currentLeft = currentEntity.position.x - halfCurrentX;

@@ -2,9 +2,10 @@ package pong;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EntityManager {
-	private ArrayList<PongComponent> entities = new ArrayList<>();
+	private List<PongComponent> entities = new ArrayList<>();
 	EntityManager() {}
 	void add(PongComponent entity) {
 		entities.add(entity);
@@ -13,7 +14,7 @@ public class EntityManager {
 		return entities;
 	}
 	PongComponent getEntity(String id) {
-		List<PongComponent> entityArray = entities.stream().filter((entity) -> entity.id == id).toList();
+		List<PongComponent> entityArray = entities.stream().filter((entity) -> entity.id == id).collect(Collectors.toList());
 		if (entityArray.size() == 1) {
 			return entityArray.get(0);
 		}
@@ -21,6 +22,10 @@ public class EntityManager {
 	}
 	PongComponent getEntityByIndex(int id) {
 		return entities.get(id);
+	}
+	
+	void removeEntity(String id) {
+		entities = entities.stream().filter((entity) -> entity.id != id).collect(Collectors.toList());;
 	}
 
 }

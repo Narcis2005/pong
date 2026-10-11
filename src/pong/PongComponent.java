@@ -8,7 +8,7 @@ public abstract class PongComponent {
 
 	public String type;
 	public String id;
-	
+
 	PongComponent(Vector2 size, Vector2 position, Vector2 initialVelocity) {
 		this.size = size;
 		this.position = position;
